@@ -1,7 +1,7 @@
 package com.example.promotion.service;
 
 import com.example.promotion.dto.DtoActualsPromo;
-import com.example.promotion.dto.DtoActualsDayTwo;
+import com.example.promotion.dto.DtoActualsDay;
 import com.example.promotion.model.*;
 import com.example.promotion.repository.ActualsRepository;
 import com.example.promotion.repository.CustomerRepository;
@@ -30,7 +30,7 @@ public class ActualsService {
     PriceRepository priceRepository;
 
 
-    public List<DtoActualsDayTwo> uploadFactByProductAndChainName(Long id, String chainName){
+    public List<DtoActualsDay> uploadFactByProductAndChainName(Long id, String chainName){
         return actualsRepository.uploadFactByProductAndChainName(id, chainName);
     }
     public List<DtoActualsPromo> uploadFact(){

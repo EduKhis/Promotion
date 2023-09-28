@@ -2,7 +2,7 @@ package com.example.promotion.dto;
 
 import java.util.Date;
 
-public interface DtoActualsDayTwo {
+public interface DtoActualsDay {
     Date getDate();
 
     Long getProductId();

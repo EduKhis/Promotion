@@ -1,7 +1,7 @@
 package com.example.promotion.controller;
 
 import com.example.promotion.dto.DtoActualsPromo;
-import com.example.promotion.dto.DtoActualsDayTwo;
+import com.example.promotion.dto.DtoActualsDay;
 import com.example.promotion.service.ActualsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ public class AnalysisController {
 
     @PostMapping("/analysisDay")
     public ResponseEntity<?> analysisDay(@RequestParam(name = "idProduct") Long idProduct, @RequestParam(name = "chainName") String chainName) {
-        List<DtoActualsDayTwo> list = actualsService.uploadFactByProductAndChainName(idProduct, chainName);
+        List<DtoActualsDay> list = actualsService.uploadFactByProductAndChainName(idProduct, chainName);
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 }
