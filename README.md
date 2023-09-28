@@ -1,14 +1,14 @@
 # Retail 
-Server: http://localhost:8080/
+>Server: http://localhost:8080/
 
-Методы для добавления данных в БД из файлов: 
-GET	/addProducts	Метод добавления продуктов
-GET	/addCustomers	Метод добавления магазинов
-GET	/addPrices	Метод добавления прайс листа
-GET	/addActuals	Метод добавления фактов отгрузок
+>Методы для добавления данных в БД из файлов: 
+>GET	/addProducts	Метод добавления продуктов
+>GET	/addCustomers	Метод добавления магазинов
+>GET	/addPrices	Метод добавления прайс листа
+>GET	/addActuals	Метод добавления фактов отгрузок
 
 Основные методы по работе с Price:
-GET	/prices	Метод получения прайс листа
+GET	/prices		Метод получения прайс листа
 
 Params
 
