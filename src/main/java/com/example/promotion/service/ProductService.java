@@ -1,6 +1,6 @@
 package com.example.promotion.service;
 
-import com.example.promotion.model.Products;
+import com.example.promotion.model.Product;
 import com.example.promotion.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.io.IOException;
 public class ProductService {
     @Autowired
     ProductRepository productRepository;
-    public Products findById (Long id) {
+    public Product findById (Long id) {
         return productRepository.findById(id).get();
     }
     public void initProducts () {
@@ -21,13 +21,11 @@ public class ProductService {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] array = line.split(";");
-                Products products = new Products(Long.parseLong(array[0]), array[1], array[2], array[3]);
-                productRepository.save(products);
+                Product product = new Product(Long.parseLong(array[0]), array[1], array[2], array[3]);
+                productRepository.save(product);
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
-
-
 }

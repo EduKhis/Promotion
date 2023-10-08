@@ -1,11 +1,11 @@
 package com.example.promotion.dto;
 
-public interface DtoActualsPromo {
+public interface DtoActualByPromo {
 
     String getChainName();
     String getCategoryCode();
     int getMonth();
-    int getValue();
-    int getValuePromo();
+    int getVolumeRegular();
+    int getVolumePromo();
     int getPercent();
 }

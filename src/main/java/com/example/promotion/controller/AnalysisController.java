@@ -1,8 +1,8 @@
 package com.example.promotion.controller;
 
-import com.example.promotion.dto.DtoActualsPromo;
-import com.example.promotion.dto.DtoActualsDay;
-import com.example.promotion.service.ActualsService;
+import com.example.promotion.dto.DtoActualByPromo;
+import com.example.promotion.dto.DtoActualByDay;
+import com.example.promotion.service.ActualService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,17 +16,17 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 public class AnalysisController {
-    ActualsService actualsService;
+    ActualService actualService;
 
-    @GetMapping("/analysisPromo")
-    public ResponseEntity<?> analysisMarker() {
-        List<DtoActualsPromo> list = actualsService.uploadFact();
+    @GetMapping("/uploadByPromo")
+    public ResponseEntity<?> uploadByPromo() {
+        List<DtoActualByPromo> list = actualService.uploadActualSalesByPromo();
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
-    @PostMapping("/analysisDay")
-    public ResponseEntity<?> analysisDay(@RequestParam(name = "idProduct") Long idProduct, @RequestParam(name = "chainName") String chainName) {
-        List<DtoActualsDay> list = actualsService.uploadFactByProductAndChainName(idProduct, chainName);
+    @PostMapping("/uploadByDay")
+    public ResponseEntity<?> uploadByDay(@RequestParam(name = "idProduct") Long idProduct, @RequestParam(name = "chainName") String chainName) {
+        List<DtoActualByDay> list = actualService.uploadActualSalesByChainNameAndProduct(idProduct, chainName);
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 }

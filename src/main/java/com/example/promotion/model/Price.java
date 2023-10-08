@@ -12,15 +12,14 @@ public class Price {
     private Long id;
     private String chainName;
     @ManyToOne
-    private Products products;
+    private Product product;
     private double regularPrice;
 
-    public Price(String chainName, Products products, double regularPrice) {
+    public Price(String chainName, Product product, double regularPrice) {
         this.chainName = chainName;
-        this.products=products;
+        this.product = product;
         this.regularPrice = regularPrice;
     }
-
     public Price() {
 
     }

@@ -2,15 +2,15 @@ package com.example.promotion.dto;
 
 import java.util.Date;
 
-public interface DtoActualsDay {
+public interface DtoActualByDay {
     Date getDate();
 
     Long getProductId();
 
     String getChainName();
 
-    int getValue();
+    int getVolume();
 
-    double getSalesValue();
+    double getActualSalesValue();
 
 }

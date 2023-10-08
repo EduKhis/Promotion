@@ -7,19 +7,18 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Customers {
+public class Customer {
 
     @Id
     private Long shipToCode;
-    private String stringShipToName;
+    private String shipToName;
     private String chainName;
 
-    public Customers() {
+    public Customer() {
     }
-
-    public Customers(Long shipToCode, String stringShipToName, String chainName) {
+    public Customer(Long shipToCode, String shipToName, String chainName) {
         this.shipToCode = shipToCode;
-        this.stringShipToName = stringShipToName;
+        this.shipToName = shipToName;
         this.chainName = chainName;
     }
 }

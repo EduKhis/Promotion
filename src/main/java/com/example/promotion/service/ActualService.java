@@ -1,9 +1,9 @@
 package com.example.promotion.service;
 
-import com.example.promotion.dto.DtoActualsPromo;
-import com.example.promotion.dto.DtoActualsDay;
+import com.example.promotion.dto.DtoActualByDay;
+import com.example.promotion.dto.DtoActualByPromo;
 import com.example.promotion.model.*;
-import com.example.promotion.repository.ActualsRepository;
+import com.example.promotion.repository.ActualRepository;
 import com.example.promotion.repository.CustomerRepository;
 import com.example.promotion.repository.PriceRepository;
 import com.example.promotion.repository.ProductRepository;
@@ -19,9 +19,9 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class ActualsService {
+public class ActualService {
     @Autowired
-    ActualsRepository actualsRepository;
+    ActualRepository actualRepository;
     @Autowired
     ProductRepository productRepository;
     @Autowired
@@ -30,13 +30,12 @@ public class ActualsService {
     PriceRepository priceRepository;
 
 
-    public List<DtoActualsDay> uploadFactByProductAndChainName(Long id, String chainName){
-        return actualsRepository.uploadFactByProductAndChainName(id, chainName);
+    public List<DtoActualByDay> uploadActualSalesByChainNameAndProduct(Long id, String chainName){
+        return actualRepository.uploadActualSalesByChainNameAndProduct(id, chainName);
     }
-    public List<DtoActualsPromo> uploadFact(){
-        return actualsRepository.uploadFact();
+    public List<DtoActualByPromo> uploadActualSalesByPromo(){
+        return actualRepository.uploadActualSalesByPromo();
     }
-
     public void initActuals() {
         try (BufferedReader br = new BufferedReader(new FileReader("actuals.txt"))) {
             String line;
@@ -45,13 +44,13 @@ public class ActualsService {
                 if (productRepository.existsById(Long.parseLong(array[1])) && customerRepository.existsById(Long.parseLong(array[2]))) {
                     SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
                     Date date = ft.parse(array[0]);
-                    Products products = productRepository.findById(Long.parseLong(array[1])).get();
-                    Customers customers = customerRepository.findById(Long.parseLong(array[2])).get();
+                    Product product = productRepository.findById(Long.parseLong(array[1])).get();
+                    Customer customer = customerRepository.findById(Long.parseLong(array[2])).get();
                     int volume = Integer.parseInt(array[4]);
-                    double actualPrice =Double.parseDouble(array[5]);
-                    Marker marker = createMarker(volume,actualPrice, customers.getChainName(), products.getMaterialNo());
-                    Actuals actuals = new Actuals(date, products, customers, volume, actualPrice,marker);
-                    actualsRepository.save(actuals);
+                    double actualSalesValue =Double.parseDouble(array[5]);
+                    Marker marker = createMarker(volume,actualSalesValue, customer.getChainName(), product.getMaterialNo());
+                    Actual actual = new Actual(date, product, customer, volume, actualSalesValue,marker);
+                    actualRepository.save(actual);
                 }
             }
         } catch (IOException ex) {
@@ -60,12 +59,11 @@ public class ActualsService {
             throw new RuntimeException(e);
         }
     }
-    public Marker createMarker (int volume, double actualPrice, String chainName, Long idProduct) {
-        double regularPrice = priceRepository.findByChainNameAndProductsMaterialNo(chainName,idProduct).getRegularPrice();
-        if (actualPrice/volume<regularPrice) {
+    public Marker createMarker(int volume, double actualSalesValue, String chainName, Long idProduct) {
+        double regularPrice = priceRepository.findByChainNameAndProductMaterialNo(chainName,idProduct).getRegularPrice();
+        if (actualSalesValue/volume<regularPrice) {
             return Marker.PROMO;
         }
         return Marker.REGULAR;
     }
-
 }
